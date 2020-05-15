@@ -23,7 +23,7 @@ public class Mandelbrot {
 	double zoom = 1;
 
 	JLabel display = new JLabel();
-	
+
 	public Mandelbrot(int width, int heigth) {
 		this.width = width;
 		this.height = heigth;
@@ -31,9 +31,11 @@ public class Mandelbrot {
 		addActions();
 		draw();
 	}
-	
-	public JLabel getDisplay() {
-		return display;
+
+	public void setCoords(double x, double y, double zoom) {
+		this.xoffset = x;
+		this.yoffset = y;
+		this.zoom = zoom;
 	}
 
 	public static double map(double n, double inmin, double inmax, double outmin, double outmax) {
@@ -60,19 +62,19 @@ public class Mandelbrot {
 	}
 
 	public void addActions() {
-		
+
 		display.addMouseListener(new MouseAdapter() {
-			
-			//Implements mouse click zoom
+
+			// Implements mouse click zoom
 			public void mouseClicked(MouseEvent e) {
 				if (SwingUtilities.isLeftMouseButton(e)) {
-					zoom = zoom * 1.5;
+					zoom = zoom * 1.75;
 				} else {
 					zoom = zoom / 1.25;
 				}
 
-				xoffset += map(e.getX(), 0, width, -1, 1) / zoom;
-				yoffset += map(e.getY(), 0, height, -1, 1) / zoom;
+				xoffset += map(e.getX(), 0, width, -2, 2) / zoom;
+				yoffset += map(e.getY(), 0, height, -2, 2) / zoom;
 				draw();
 			}
 		});
@@ -81,7 +83,7 @@ public class Mandelbrot {
 
 			// Implements mouse wheel zoom
 			public void mouseWheelMoved(MouseWheelEvent e) {
-				double ratio = 1.1;
+				double ratio = 1.05;
 				double depth = e.getWheelRotation();
 
 				if (depth > 0) {
@@ -90,9 +92,9 @@ public class Mandelbrot {
 					depth = Math.abs(depth) * ratio;
 				}
 
-				zoom = zoom * depth;
-				xoffset += map(e.getX(), 0, width, -2, 2) * 0.1 / zoom;
-				yoffset += map(e.getY(), 0, height, -2, 2) * 0.1 / zoom;
+				zoom = zoom * depth ;
+				xoffset += map(e.getX(), 0, width, -2, 2) / zoom * 0.1;
+				yoffset += map(e.getY(), 0, height, -2, 2) / zoom * 0.1;
 				draw();
 			}
 		});
@@ -186,13 +188,29 @@ public class Mandelbrot {
 
 		return img;
 	}
+	
+	public double getXoffset() {
+		return xoffset;
+	}
+
+	public double getYoffset() {
+		return yoffset;
+	}
+
+	public double getZoom() {
+		return zoom;
+	}
+
+	public JLabel getDisplay() {
+		return display;
+	}
 
 	public static void main(String[] args) {
 		JFrame frame = new JFrame("Mandelbrot");
 		Mandelbrot fractal = new Mandelbrot(500, 1000);
 
 		frame.getContentPane().add(fractal.getDisplay());
-		
+
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.pack();
 		frame.setVisible(true);
