@@ -26,7 +26,7 @@ public class Mandelbrot {
 
 	JLabel display = new JLabel();
 
-	Fractal fractal = Fractal.mandelbrot;
+	Fractal fractal = MandelbrotFractals.mandelbrot;
 
 	public Mandelbrot(int width, int heigth) {
 		this.width = width;

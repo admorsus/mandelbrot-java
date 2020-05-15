@@ -15,7 +15,7 @@ public class FractalList {
 	public FractalList(Mandelbrot display) {
 		//this.display = display;
 		
-		Field[] fields = Fractal.class.getFields();
+		Field[] fields = MandelbrotFractals.class.getFields();
 		String[] names = new String[fields.length];
 		
 		for (int i = 0; i < fields.length; i++) {
@@ -39,7 +39,7 @@ public class FractalList {
 				String selected = (String) combo.getItemAt(combo.getSelectedIndex());
 				for (Field field : fields) {
 					try {
-						Fractal iter = (Fractal) field.get(Fractal.class);
+						Fractal iter = (Fractal) field.get(MandelbrotFractals.class);
 						if (selected.equals(iter.name)) {
 							display.fractal = iter;
 							display.setDefaultCoords();
