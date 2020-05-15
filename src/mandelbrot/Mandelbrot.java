@@ -178,11 +178,6 @@ public class Mandelbrot {
 				}
 
 				img.setRGB(x, y, color);
-
-				//// Verbosity ////
-				if (x == width / 2 && y == height / 2) {
-					System.out.println("x:" + x + " y:" + y + " : " + bright);
-				}
 			}
 		}
 
