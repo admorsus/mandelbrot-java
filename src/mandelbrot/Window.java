@@ -14,7 +14,7 @@ public class Window {
 
 	final static String app_name = "Fractal Diver";
 
-	Mandelbrot display = new Mandelbrot(800, 700);
+	Mandelbrot display = new Mandelbrot(1200, 900);
 	JFrame frame = new JFrame(app_name);
 	
 
