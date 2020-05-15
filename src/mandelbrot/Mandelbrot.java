@@ -11,11 +11,13 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
 
+
 public class Mandelbrot {
 
 	int width;
 	int height;
 	int maxd;
+	
 	int[] palette = generatePalette();
 
 	double xoffset = 0;
@@ -24,14 +26,21 @@ public class Mandelbrot {
 
 	JLabel display = new JLabel();
 
-	Fractal fractal = Fractal.mandelbrot_3;
+	Fractal fractal = Fractal.mandelbrot;
 
 	public Mandelbrot(int width, int heigth) {
 		this.width = width;
 		this.height = heigth;
 		this.maxd = Math.max(width, heigth);
+		setDefaultCoords();
 		addActions();
 		draw();
+	}
+	
+	public void setDefaultCoords() {
+		this.xoffset = fractal.x;
+		this.yoffset = fractal.y;
+		this.zoom = fractal.zoom;
 	}
 
 	public void setCoords(double x, double y, double zoom) {
@@ -147,8 +156,8 @@ public class Mandelbrot {
 				double ca = a, cb = b;
 
 				while (n < max_iterations) {
-					double aa = fractal.za(a, b);
-					double bb = fractal.zb(a, b);
+					double aa = fractal.zreal(a, b);
+					double bb = fractal.zimag(a, b);
 					a = aa + ca;
 					b = bb + cb;
 
