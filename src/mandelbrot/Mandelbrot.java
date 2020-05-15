@@ -24,6 +24,8 @@ public class Mandelbrot {
 
 	JLabel display = new JLabel();
 
+	Fractal fractal = Fractal.mandelbrot_3;
+
 	public Mandelbrot(int width, int heigth) {
 		this.width = width;
 		this.height = heigth;
@@ -92,7 +94,7 @@ public class Mandelbrot {
 					depth = Math.abs(depth) * ratio;
 				}
 
-				zoom = zoom * depth ;
+				zoom = zoom * depth;
 				xoffset += map(e.getX(), 0, width, -2, 2) / zoom * 0.1;
 				yoffset += map(e.getY(), 0, height, -2, 2) / zoom * 0.1;
 				draw();
@@ -126,16 +128,7 @@ public class Mandelbrot {
 		display.setIcon(new ImageIcon(img));
 	}
 
-	// Mandelbrot z=z2+c real compound
-	public static final double z2a(double a, double b) {
-		return a * a - b * b;
-	}
-
-	// Mandelbrot z=z2+c complex compound
-	public static final double z2b(double a, double b) {
-		return 2 * a * b;
-	}
-
+	
 	// Mandelbrot image
 	public Image mandelbrot() {
 
@@ -154,8 +147,8 @@ public class Mandelbrot {
 				double ca = a, cb = b;
 
 				while (n < max_iterations) {
-					double aa = z2a(a, b);
-					double bb = z2b(a, b);
+					double aa = fractal.za(a, b);
+					double bb = fractal.zb(a, b);
 					a = aa + ca;
 					b = bb + cb;
 
@@ -183,7 +176,7 @@ public class Mandelbrot {
 
 		return img;
 	}
-	
+
 	public double getXoffset() {
 		return xoffset;
 	}
