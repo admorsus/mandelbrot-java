@@ -1,0 +1,8 @@
+bin
+# Eclipse
+.classpath
+.project
+.settings/
+# Me
+src/old
+gitignore
