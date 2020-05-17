@@ -17,20 +17,20 @@ public class CoordinatesDialog {
 	JDialog dialog = new JDialog();
 
 	public CoordinatesDialog(Mandelbrot f) {
-		double x = f.getXoffset();
-		double y = f.getYoffset();
-		double z = f.getZoom();
+		String x = NumberUtils.formatDouble(f.getXoffset(), f.getZoom());
+		String y = NumberUtils.formatDouble(f.getYoffset(), f.getZoom());
+		String z = NumberUtils.formatDouble(f.getZoom(), f.getZoom());
 
 		dialog.setLocationRelativeTo(f.getDisplay());
 		dialog.setTitle("Coordinates");
 		Container pane = dialog.getContentPane();
 		pane.setLayout(new GridLayout(3, 2));
 
-		var xfield = new JTextField(Double.toString(x), 6);
+		var xfield = new JTextField(x);
 		xfield.setHorizontalAlignment(SwingConstants.LEADING);
-		var yfield = new JTextField(Double.toString(y));
+		var yfield = new JTextField(y);
 		yfield.setHorizontalAlignment(SwingConstants.LEADING);
-		var zfield = new JTextField(Double.toString(z));
+		var zfield = new JTextField(z);
 		zfield.setHorizontalAlignment(SwingConstants.LEADING);
 
 		pane.add(new JLabel("X coord:"));
@@ -44,9 +44,9 @@ public class CoordinatesDialog {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				if (e.getKeyChar() == '\n') {
-					double x = Double.parseDouble(xfield.getText());
-					double y = Double.parseDouble(yfield.getText());
-					double z = Double.parseDouble(zfield.getText());
+					double x = Double.parseDouble(xfield.getText().replace(',', '.'));
+					double y = Double.parseDouble(yfield.getText().replace(',', '.'));
+					double z = Double.parseDouble(zfield.getText().replace(',', '.'));
 
 					f.setCoords(x, y, z);
 					f.draw();
