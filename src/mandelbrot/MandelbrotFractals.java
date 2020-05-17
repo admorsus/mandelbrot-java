@@ -1,9 +1,10 @@
 package mandelbrot;
 
 public class MandelbrotFractals {
-	//////FRACTALS DEFINITIONS ///////
+	////// FRACTAL DEFINITIONS /////
 
-	public static Fractal mandelbrot = new Fractal() {
+	// Mandelbrot set for Z'=Z^2+C
+	public static final Fractal Mandelbrot = new Fractal("Mandelbrot Z'=Z^2+C") {
 
 		@Override
 		public double zreal(double a, double b) {
@@ -17,7 +18,6 @@ public class MandelbrotFractals {
 
 		@Override
 		public void setup() {
-			name = "Mandelbrot Z'=Z^2+C";
 			x = -0.6;
 			y = 0.25;
 			zoom = 1.25;
@@ -25,8 +25,7 @@ public class MandelbrotFractals {
 	};
 
 	// Mandelbrot set for Z'=Z^3+C
-
-	public static Fractal mandelbrot_3 = new Fractal() {
+	public static final Fractal Mandelbrot3 = new Fractal("Mandelbrot Z'=Z^3+C") {
 
 		@Override
 		public double zreal(double a, double b) {
@@ -40,7 +39,6 @@ public class MandelbrotFractals {
 
 		@Override
 		public void setup() {
-			name = "Mandelbrot Z'=Z^3+C";
 			x = 0;
 			y = 0.25;
 			zoom = 1.2;
@@ -48,8 +46,7 @@ public class MandelbrotFractals {
 	};
 
 	// Mandelbrot set for Z=Z^4+C
-
-	public static Fractal mandelbrot_4 = new Fractal() {
+	public static final Fractal Mandelbrot4 = new Fractal("Mandelbrot Z'=Z^4+C") {
 
 		@Override
 		public double zreal(double a, double b) {
@@ -63,7 +60,6 @@ public class MandelbrotFractals {
 
 		@Override
 		public void setup() {
-			name = "Mandelbrot Z'=Z^4+C";
 			x = -0.15;
 			y = 0.20;
 			zoom = 1.35;
