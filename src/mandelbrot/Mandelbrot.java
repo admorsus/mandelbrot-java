@@ -21,7 +21,7 @@ public class Mandelbrot {
 
 	// Color palette
 	int[] palette = ColorPalettes.RedPalette();
-	int innerColor = 0;
+	int innerColor = 255;
 
 	// Adjustment settings
 	double xoffset = 0;
@@ -115,7 +115,11 @@ public class Mandelbrot {
 	public void setDimension(Dimension d) {
 		height = d.height;
 		width = d.width;
-		draw();
+	}
+	
+	// Set color palette
+	public void setPalette(int[] palette) {
+		this.palette = palette;
 	}
 
 	// Set fractal's default coordinates
@@ -131,6 +135,15 @@ public class Mandelbrot {
 		this.yoffset = y;
 		this.zoom = zoom;
 	}
+	
+	public Double[] getCoords (int x, int y) {
+		Double[] coords = new Double[] {
+			map(x, 0, maxd, -2, 2) / zoom + xoffset,
+			map(y, 0, maxd, -2, 2) / zoom + yoffset,
+			zoom
+		};
+		return coords;
+	}
 
 	// Maps n between given min and max
 	public static double map(double n, double inmin, double inmax, double outmin, double outmax) {
@@ -138,7 +151,7 @@ public class Mandelbrot {
 	}
 
 	// Mandelbrot image
-	public Image mandelbrot() {
+	public BufferedImage mandelbrot() {
 
 		var img = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 
@@ -196,13 +209,14 @@ public class Mandelbrot {
 	public double getZoom() {
 		return zoom;
 	}
+	
+	@Override
+	public String toString() {
+		return fractal.name + "_x" + xoffset + "_y" + yoffset + "_z" + zoom;
+	}
 
 	public JLabel getDisplay() {
 		return display;
-	}
-	
-	public void setPalette(int[] palette) {
-		this.palette = palette;
 	}
 
 	public static void main(String[] args) {

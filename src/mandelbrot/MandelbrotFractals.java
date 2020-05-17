@@ -4,7 +4,7 @@ public class MandelbrotFractals {
 	////// FRACTAL DEFINITIONS /////
 
 	// Mandelbrot set for Z'=Z^2+C
-	public static final Fractal Mandelbrot = new Fractal("Mandelbrot Z'=Z^2+C") {
+	public static final Fractal Mandelbrot = new Fractal("Mandelbrot_Z'=Z^2+C") {
 
 		@Override
 		public double zreal(double a, double b) {
@@ -25,7 +25,7 @@ public class MandelbrotFractals {
 	};
 
 	// Mandelbrot set for Z'=Z^3+C
-	public static final Fractal Mandelbrot3 = new Fractal("Mandelbrot Z'=Z^3+C") {
+	public static final Fractal Mandelbrot3 = new Fractal("Mandelbrot_Z'=Z^3+C") {
 
 		@Override
 		public double zreal(double a, double b) {
@@ -46,7 +46,7 @@ public class MandelbrotFractals {
 	};
 
 	// Mandelbrot set for Z=Z^4+C
-	public static final Fractal Mandelbrot4 = new Fractal("Mandelbrot Z'=Z^4+C") {
+	public static final Fractal Mandelbrot4 = new Fractal("Mandelbrot_Z'=Z^4+C") {
 
 		@Override
 		public double zreal(double a, double b) {
