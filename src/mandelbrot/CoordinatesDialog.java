@@ -22,22 +22,22 @@ public class CoordinatesDialog {
 		double z = f.getZoom();
 
 		dialog.setLocationRelativeTo(f.getDisplay());
-		dialog.setTitle("Coords");
+		dialog.setTitle("Coordinates");
 		Container pane = dialog.getContentPane();
 		pane.setLayout(new GridLayout(3, 2));
 
 		var xfield = new JTextField(Double.toString(x), 6);
-		xfield.setHorizontalAlignment(SwingConstants.TRAILING);
+		xfield.setHorizontalAlignment(SwingConstants.LEADING);
 		var yfield = new JTextField(Double.toString(y));
-		yfield.setHorizontalAlignment(SwingConstants.TRAILING);
+		yfield.setHorizontalAlignment(SwingConstants.LEADING);
 		var zfield = new JTextField(Double.toString(z));
-		zfield.setHorizontalAlignment(SwingConstants.TRAILING);
+		zfield.setHorizontalAlignment(SwingConstants.LEADING);
 
 		pane.add(new JLabel("X coord:"));
 		pane.add(xfield);
 		pane.add(new JLabel("Y coord:"));
 		pane.add(yfield);
-		pane.add(new JLabel("Z factor:"));
+		pane.add(new JLabel("Zoom factor:"));
 		pane.add(zfield);
 
 		KeyAdapter closeOnEnter = new KeyAdapter() {

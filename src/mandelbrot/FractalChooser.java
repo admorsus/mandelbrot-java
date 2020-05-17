@@ -8,35 +8,34 @@ import java.lang.reflect.Modifier;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 
-public class FractalList {
-	
-	private JComboBox<String> combo;
-	
-	public FractalList(Mandelbrot display) {
-		//this.display = display;
-		
+public class FractalChooser {
+
+	JComboBox<String> box;
+
+	public FractalChooser(Mandelbrot display) {
+
 		Field[] fields = MandelbrotFractals.class.getFields();
 		String[] names = new String[fields.length];
-		
+
 		for (int i = 0; i < fields.length; i++) {
 			if (Modifier.isStatic(fields[i].getModifiers())) {
 				Fractal fractal;
 				try {
-					fractal = (Fractal)fields[i].get(Fractal.class);
+					fractal = (Fractal) fields[i].get(Fractal.class);
 					names[i] = fractal.name;
 				} catch (IllegalArgumentException | IllegalAccessException e1) {
 					e1.printStackTrace();
 				}
 			}
 		}
-		
-		combo = new JComboBox<String>(names);
-		
-		combo.addActionListener(new ActionListener() {
-			
+
+		box = new JComboBox<String>(names);
+
+		box.addActionListener(new ActionListener() {
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String selected = (String) combo.getItemAt(combo.getSelectedIndex());
+				String selected = (String) box.getItemAt(box.getSelectedIndex());
 				for (Field field : fields) {
 					try {
 						Fractal iter = (Fractal) field.get(MandelbrotFractals.class);
@@ -52,19 +51,13 @@ public class FractalList {
 			}
 		});
 	}
-	
-	public JComboBox<String> getCombo() {
-		return combo;
-	}
 
 	public static void main(String[] args) {
 		JFrame f = new JFrame();
-		FractalList l = new FractalList(new Mandelbrot(0, 0));
-		f.getContentPane().add(l.combo);
+		FractalChooser l = new FractalChooser(new Mandelbrot(0, 0));
+		f.getContentPane().add(l.box);
 		f.pack();
 		f.setVisible(true);
-		
+
 	}
 }
-
-

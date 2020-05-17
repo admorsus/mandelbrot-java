@@ -1,5 +1,6 @@
 package mandelbrot;
 
+import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -11,22 +12,26 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
 
-
+// Mandelbrot set display
 public class Mandelbrot {
 
+	// Image size
 	int width;
 	int height;
-	int maxd;
-	
-	int[] palette = generatePalette();
 
+	// Color palette
+	int[] palette = ColorPalettes.RedPalette();
+
+	// Adjustment settings
 	double xoffset = 0;
 	double yoffset = 0;
 	double zoom = 1;
 
-	JLabel display = new JLabel();
+	// Fractal to display
+	Fractal fractal = MandelbrotFractals.Mandelbrot;
 
-	Fractal fractal = MandelbrotFractals.mandelbrot;
+	private int maxd;
+	private JLabel display = new JLabel();
 
 	public Mandelbrot(int width, int heigth) {
 		this.width = width;
@@ -36,47 +41,20 @@ public class Mandelbrot {
 		addActions();
 		draw();
 	}
+
+	// Main method
+	public void draw() {
+		Image img = mandelbrot();
+		display.setIcon(new ImageIcon(img));
+	}
+
+	// Necesito una función que sea capaz de conseguir un punto que esté entre 
 	
-	public void setDefaultCoords() {
-		this.xoffset = fractal.x;
-		this.yoffset = fractal.y;
-		this.zoom = fractal.zoom;
-	}
-
-	public void setCoords(double x, double y, double zoom) {
-		this.xoffset = x;
-		this.yoffset = y;
-		this.zoom = zoom;
-	}
-
-	public static double map(double n, double inmin, double inmax, double outmin, double outmax) {
-		return (n - inmin) * (outmax - outmin) / (inmax - inmin) + outmin;
-	}
-
-	public static int[] generatePalette() {
-		int[] palette = new int[256];
-		int roffset = 24;
-		int goffset = 0;
-		int boffset = 16;
-		for (int i = 0; i < 256; i++) {
-			palette[i] = (255 << 24) | (roffset << 16) | (goffset << 8) | boffset;
-			if (i < 64) {
-				roffset += 3;
-			} else if (i < 128) {
-				goffset += 3;
-			} else if (i < 192) {
-				boffset += 3;
-			}
-		}
-
-		return palette;
-	}
-
+	// Add all actions
 	public void addActions() {
 
+		// Implements mouse click zoom
 		display.addMouseListener(new MouseAdapter() {
-
-			// Implements mouse click zoom
 			public void mouseClicked(MouseEvent e) {
 				if (SwingUtilities.isLeftMouseButton(e)) {
 					zoom = zoom * 1.75;
@@ -90,9 +68,8 @@ public class Mandelbrot {
 			}
 		});
 
+		// Implements mouse wheel zoom
 		display.addMouseWheelListener(new MouseAdapter() {
-
-			// Implements mouse wheel zoom
 			public void mouseWheelMoved(MouseWheelEvent e) {
 				double ratio = 1.05;
 				double depth = e.getWheelRotation();
@@ -110,15 +87,17 @@ public class Mandelbrot {
 			}
 		});
 
+		// Implements mouse drag moving
 		display.addMouseListener(new MouseAdapter() {
 			int ix, iy;
 
+			// Stores starting point
 			public void mousePressed(MouseEvent e) {
 				ix = e.getX();
 				iy = e.getY();
 			}
 
-			// Implements mouse drag moving
+			// Offset the displaced distance
 			public void mouseReleased(MouseEvent e) {
 				int x = ix - e.getX();
 				int y = iy - e.getY();
@@ -128,16 +107,35 @@ public class Mandelbrot {
 				yoffset += map(y, -halfd, halfd, -2, 2) / zoom;
 				draw();
 			}
-
 		});
 	}
 
-	public void draw() {
-		Image img = mandelbrot();
-		display.setIcon(new ImageIcon(img));
+	// Set display dimensions
+	public void setDimension(Dimension d) {
+		height = d.height;
+		width = d.width;
+		draw();
 	}
 
-	
+	// Set fractal's default coordinates
+	public void setDefaultCoords() {
+		this.xoffset = fractal.x;
+		this.yoffset = fractal.y;
+		this.zoom = fractal.zoom;
+	}
+
+	// Set given coordinates
+	public void setCoords(double x, double y, double zoom) {
+		this.xoffset = x;
+		this.yoffset = y;
+		this.zoom = zoom;
+	}
+
+	// Maps n between given min and max
+	public static double map(double n, double inmin, double inmax, double outmin, double outmax) {
+		return (n - inmin) * (outmax - outmin) / (inmax - inmin) + outmin;
+	}
+
 	// Mandelbrot image
 	public Image mandelbrot() {
 
@@ -200,6 +198,10 @@ public class Mandelbrot {
 
 	public JLabel getDisplay() {
 		return display;
+	}
+	
+	public void setPalette(int[] palette) {
+		this.palette = palette;
 	}
 
 	public static void main(String[] args) {
