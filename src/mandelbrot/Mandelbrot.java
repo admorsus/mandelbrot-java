@@ -21,6 +21,7 @@ public class Mandelbrot {
 
 	// Color palette
 	int[] palette = ColorPalettes.RedPalette();
+	int innerColor = 0;
 
 	// Adjustment settings
 	double xoffset = 0;
@@ -170,7 +171,7 @@ public class Mandelbrot {
 
 				int color;
 				if (n >= 100) {
-					color = palette[255];
+					color = palette[innerColor];
 				} else {
 					int index = (int) Math.floor(bright);
 					// if (index > 150) { System.out.println(index); }
