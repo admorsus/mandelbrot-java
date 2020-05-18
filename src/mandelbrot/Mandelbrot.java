@@ -8,7 +8,6 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.image.BufferedImage;
 
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
 
@@ -48,8 +47,6 @@ public class Mandelbrot {
 		Image img = mandelbrot();
 		display.setIcon(new ImageIcon(img));
 	}
-
-	// Necesito una función que sea capaz de conseguir un punto que esté entre 
 	
 	// Add all actions
 	public void addActions() {
@@ -82,8 +79,8 @@ public class Mandelbrot {
 				}
 
 				zoom = zoom * depth;
-				xoffset += map(e.getX(), 0, width, -2, 2) / zoom * 0.1;
-				yoffset += map(e.getY(), 0, height, -2, 2) / zoom * 0.1;
+				xoffset += map(e.getX(), 0, maxd, -2, 2) / zoom; //* 0.1;
+				yoffset += map(e.getY(), 0, maxd, -2, 2) / zoom; //* 0.1;
 				draw();
 			}
 		});
@@ -183,7 +180,7 @@ public class Mandelbrot {
 				// bright = map(bright, 0, 1, 0, 255);
 
 				int color;
-				if (n >= 100) {
+				if (n >= max_iterations) {
 					color = palette[innerColor];
 				} else {
 					int index = (int) Math.floor(bright);
@@ -220,14 +217,7 @@ public class Mandelbrot {
 	}
 
 	public static void main(String[] args) {
-		JFrame frame = new JFrame("Mandelbrot");
-		Mandelbrot fractal = new Mandelbrot(500, 1000);
-
-		frame.getContentPane().add(fractal.getDisplay());
-
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.pack();
-		frame.setVisible(true);
+		Window.main(null);
 
 	}
 
